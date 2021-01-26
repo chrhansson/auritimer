@@ -1,17 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createBrowserHistory } from "history";
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Route, Router, Switch, Link } from "react-router-dom";
+import TestApp from './components/TestApp/TestApp';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const hist = createBrowserHistory();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const IndexApp = () => {
+  return (
+    <Router history={hist}>
+      <div>
+
+      <Link to="/">Home</Link>{' '}
+      <Link to={{pathname: '/app'}}>App</Link>{' '}
+      <Link to="/test">test</Link>
+    <Switch>
+      <Route exact path="/app" component={App}/>
+      <Route exact path="/test" component={TestApp}/>
+    </Switch>
+    </div>
+  </Router>
+)
+};
+
+
+ReactDOM.render(<IndexApp />, document.getElementById("root"));
